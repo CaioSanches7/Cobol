@@ -1,2 +1,0 @@
-# Cobol
-Curso Cobol
