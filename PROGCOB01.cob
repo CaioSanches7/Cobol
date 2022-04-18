@@ -1,39 +1,42 @@
-        IDENTIFICATION DIVISION.
-        PROGRAM-ID. PROGCOB01.
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. PROGCOB01.
       ******************************************************************
       *ÁREA DE COMENTÁRIOS.                                            *
       *AUTOR    = CAIO SANCHES - CAIOSS.                               *
       *OBJETIVO = APRENDER COBOL.                                      *
       *DATA     = 19/03/2022.                                          *
       ******************************************************************
-        ENVIRONMENT DIVISION.
-        CONFIGURATION SECTION.
-        SPECIAL-NAMES.
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       SPECIAL-NAMES.
            DECIMAL-POINT IS COMMA.
-        DATA DIVISION.
-        WORKING-STORAGE SECTION.
-       77 WRK-NM          PIC X(20)            VALUE SPACES.
-       77 WRK-IDADE       PIC 9(02)            VALUE ZEROS.
-       77 WRK-SLR         PIC 9(05)V99         VALUE ZEROS.
-       77 WRK-MSK-SLR     PIC $ZZ.ZZ9,99       VALUE ZEROS.
-       77 WRK-CPF         PIC 999.999.999/99   VALUE ZEROS.
-       77 WRK-VL01        PIC S9(05)V99        VALUE ZEROS.
-       77 WRK-VL02        PIC S9(05)V99        VALUE ZEROS.
-       77 WRK-SD          PIC S9(05)V99        VALUE ZEROS.
-       77 WRK-SD-SINAL    PIC -Z9.V99          VALUE ZEROS.
-       77 WRK-RST         PIC  9(02)           VALUE ZEROS.
-       77 WRK-PRODUTO     PIC  X(20)           VALUE SPACES.
-       77 WRK-FRETE       PIC S9(04)V99        VALUE ZEROS.
-       77 WRK-FRETE-MASK  PIC $ZZZ9,99         VALUE ZEROS.
-       77 WRK-UF          PIC  X(02)           VALUE SPACES.
-       77 WRK-NIVEL       PIC  9(02)           VALUE ZEROS.
-           88 ADM                              VALUE 01.
-           88 USER                             VALUE 02.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       77  WRK-NM          PIC X(20)            VALUE SPACES.
+       77  WRK-IDADE       PIC 9(02)            VALUE ZEROS.
+       77  WRK-SLR         PIC 9(05)V99         VALUE ZEROS.
+       77  WRK-MSK-SLR     PIC $ZZ.ZZ9,99       VALUE ZEROS.
+       77  WRK-CPF         PIC 999.999.999/99   VALUE ZEROS.
+       77  WRK-VL01        PIC S9(05)V99        VALUE ZEROS.
+       77  WRK-VL02        PIC S9(05)V99        VALUE ZEROS.
+       77  WRK-SD          PIC S9(05)V99        VALUE ZEROS.
+       77  WRK-SD-SINAL    PIC -Z9.V99          VALUE ZEROS.
+       77  WRK-RST         PIC  9(02)           VALUE ZEROS.
+       77  WRK-PRODUTO     PIC  X(20)           VALUE SPACES.
+       77  WRK-FRETE       PIC S9(04)V99        VALUE ZEROS.
+       77  WRK-FRETE-MASK  PIC $ZZZ9,99         VALUE ZEROS.
+       77  WRK-UF          PIC  X(02)           VALUE SPACES.
+       77  WRK-CONT        PIC  9(02)           VALUE 01.
+       77  WRK-VL-01       PIC  9(02)           VALUE ZEROS.
+       77  WRK-SALDO       PIC  9(02)           VALUE ZEROS.
+       77  WRK-NIVEL       PIC  9(02)           VALUE ZEROS.
+           88 ADM                               VALUE 01.
+           88 USER                              VALUE 02.
       *
-       01 WRK-DT-ATU.
-          02 WRK-DT-ANO   PIC 9(04)            VALUE ZEROS.
-          02 WRK-DT-MES   PIC 9(02)            VALUE ZEROS.
-          02 WRK-DT-DIA   PIC 9(02)            VALUE ZEROS.
+       01  WRK-DT-ATU.
+           02 WRK-DT-ANO   PIC 9(04)            VALUE ZEROS.
+           02 WRK-DT-MES   PIC 9(02)            VALUE ZEROS.
+           02 WRK-DT-DIA   PIC 9(02)            VALUE ZEROS.
       *
         PROCEDURE DIVISION.
       ******************************************************************
@@ -49,8 +52,8 @@
       *     PERFORM 8000-DESAFIO-MEDIA.
       *     PERFORM 9000-UTILIZA-EVALUATE.
       *     PERFORM 10000-CALCULA-FRETE.
-            PERFORM 11000-NIVEL-88.
-
+      *     PERFORM 11000-NIVEL-88.
+           PERFORM 12000-CALCULA-TABUADA.
       *     PERFORM 99999-DISPLAY.
            STOP RUN.
       *
@@ -67,7 +70,8 @@
       *     ACCEPT WRK-VL01.
       *     ACCEPT WRK-UF.
       *     ACCEPT WRK-VL02.
-           ACCEPT WRK-NIVEL.
+      *     ACCEPT WRK-NIVEL.
+           ACCEPT WRK-VL-01.
       *
        2999-SAIDA.
       ******************************************************************
@@ -213,6 +217,18 @@
                END-IF
            END-IF.
       ******************************************************************
+       12000-CALCULA-TABUADA   SECTION.
+      ******************************************************************
+           PERFORM 10 TIMES
+               COMPUTE WRK-SALDO = WRK-VL-01 * WRK-CONT
+               DISPLAY WRK-VL-01 ' X ' WRK-CONT ' = ' WRK-SALDO
+               COMPUTE WRK-CONT = WRK-CONT + 1
+           END-PERFORM.
+
+      *POSSO EXECUTAR UM PARAGRAFO X VEZES
+      * PERFORM 'PARAGRAFO' X TIMES
+      * PERFORM 0100-TESTE 10 TIMES.
+      ******************************************************************
        99999-DISPLAY           SECTION.
       ******************************************************************
       *
@@ -236,4 +252,4 @@
            DISPLAY 'NIVEL USUARIO: ' WRK-NIVEL.
 
        99999-SAIDA.
-      *****************************************************************
+      ******************************************************************
